@@ -2581,8 +2581,9 @@ function renderTaskGrid(prefix) {
 
   grid.innerHTML = tasks.map(t => {
     if (t.isHomework) {
+      const panelId = prefix === 'child' ? 'homework-panel' : 'parent-homework-panel';
       return `
-        <div class="task-card" onclick="openHomeworkPanel('${prefix}-homework-panel')">
+        <div class="task-card" onclick="openHomeworkPanel('${panelId}')">
           <span class="task-arrow">▸</span>
           <span class="task-emoji">${t.emoji}</span>
           <span class="task-name">${t.name}</span>
@@ -2591,8 +2592,9 @@ function renderTaskGrid(prefix) {
       `;
     }
     if (t.isChores) {
+      const panelId = prefix === 'child' ? 'chores-panel' : 'parent-chores-panel';
       return `
-        <div class="task-card" onclick="openChoresPanel('${prefix}-chores-panel')">
+        <div class="task-card" onclick="openChoresPanel('${panelId}')">
           <span class="task-arrow">▸</span>
           <span class="task-emoji">${t.emoji}</span>
           <span class="task-name">${t.name}</span>
