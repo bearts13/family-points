@@ -1270,6 +1270,28 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
     </section>
 
     <section class="settings-card">
+      <h2 class="spend-card-title">🎁 奖励积分</h2>
+      <p class="text-xs mb-3" style="color: var(--color-text-muted);">给孩子手动增加积分奖励</p>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="number" id="bonus-points-input" min="1" max="100" value="5" style="flex: 1; padding: 12px; border: 2px solid var(--color-border); border-radius: var(--radius-lg); font-size: var(--font-size-lg); text-align: center; background: var(--color-card); color: var(--color-text-primary);">
+        <button class="login-btn" style="width: auto; padding: 0 20px; min-height: 48px; background: var(--color-income);" onclick="doBonusPoints()">
+          <span>🎉 加分</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="settings-card">
+      <h2 class="spend-card-title">👦 孩子信息</h2>
+      <p class="text-xs mb-3" style="color: var(--color-text-muted);">修改孩子的名字</p>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="text" id="child-name-input" style="flex: 1; padding: 12px; border: 2px solid var(--color-border); border-radius: var(--radius-lg); font-size: var(--font-size-base); background: var(--color-card); color: var(--color-text-primary);" placeholder="输入孩子名字">
+        <button class="login-btn" style="width: auto; padding: 0 20px; min-height: 48px; background: var(--color-sky);" onclick="doUpdateChildName()">
+          <span>保存</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="settings-card">
       <h2 class="spend-card-title">👨‍👩‍👧 家庭邀请</h2>
       <p class="text-xs mb-3" style="color: var(--color-text-muted);">把邀请码告诉孩子，孩子就能加入家庭</p>
       <div style="display: flex; gap: 8px; align-items: center;">
@@ -2434,6 +2456,25 @@ async function executeInterest(interest) {
   }
 }
 
+async function executeBonus(points) {
+  if (!householdId) {
+    showToast('家庭数据未加载，请刷新页面重试', 'error');
+    return;
+  }
+
+  try {
+    const result = await addTransaction('earn', 'bonus', points, '家长奖励');
+    if (!result) return;
+
+    showFloatScore(`+${points}`, 'positive');
+    refreshAllUI();
+    showToast(`奖励 +${points} 积分！`, 'success');
+  } catch (err) {
+    console.error('奖励积分失败:', err);
+    showToast('操作失败：' + (err.message || '未知错误'), 'error');
+  }
+}
+
 // ============================================================
 // UI HELPERS
 // ============================================================
@@ -2490,6 +2531,8 @@ async function confirmDialogAction() {
     await executeInterest(action.interest);
   } else if (action.type === 'child_exit') {
     doChildExit();
+  } else if (action.type === 'bonus') {
+    await executeBonus(action.points);
   }
 }
 
@@ -2775,6 +2818,12 @@ function renderSettingsPage() {
   document.getElementById('spend-limit-slider').value = appData.config.weekdaySpendLimit;
   document.getElementById('spend-limit-value').textContent = `${appData.config.weekdaySpendLimit} 分`;
 
+  // 填充孩子名字
+  const nameInput = document.getElementById('child-name-input');
+  if (nameInput && appData.child.name) {
+    nameInput.value = appData.child.name;
+  }
+
   // 显示邀请码
   const inviteCodeEl = document.getElementById('invite-code-display');
   if (inviteCodeEl) {
@@ -2808,6 +2857,53 @@ async function updateSpendLimit() {
   appData.config.weekdaySpendLimit = val;
   document.getElementById('spend-limit-value').textContent = `${val} 分`;
   await saveHouseholdConfig();
+}
+
+async function doBonusPoints() {
+  const input = document.getElementById('bonus-points-input');
+  const points = parseInt(input.value);
+
+  if (!points || points <= 0) {
+    showToast('请输入有效的积分数量', 'error');
+    return;
+  }
+  if (points > 100) {
+    showToast('单次最多加100积分', 'error');
+    return;
+  }
+
+  pendingAction = { type: 'bonus', points: points };
+  showConfirmDialog('🎁', `奖励 ${points} 积分？`, `将增加 ${points} 积分到余额`, 'earn');
+}
+
+async function doUpdateChildName() {
+  const input = document.getElementById('child-name-input');
+  const name = input.value.trim();
+
+  if (!name) {
+    showToast('请输入孩子名字', 'error');
+    return;
+  }
+  if (name.length > 10) {
+    showToast('名字最多10个字符', 'error');
+    return;
+  }
+
+  try {
+    const { error } = await supabase
+      .from('households')
+      .update({ child_name: name })
+      .eq('id', householdId);
+
+    if (error) throw error;
+
+    appData.child.name = name;
+    refreshAllUI();
+    showToast('名字已更新', 'success');
+  } catch (err) {
+    console.error('更新名字失败:', err);
+    showToast('更新失败：' + (err.message || '未知错误'), 'error');
+  }
 }
 
 function setHistoryFilter(filter, mode) {
