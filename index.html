@@ -418,22 +418,30 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
   margin-bottom: 16px;
 }
 .penalty-zone .penalty-title { font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); color: var(--color-expense-dark); margin-bottom: 16px; }
+.penalty-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
 .penalty-btn {
-  width: 100%;
-  min-height: var(--touch-min);
-  background: var(--color-expense);
-  color: white;
-  border-radius: var(--radius-lg);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 6px;
+  padding: 16px;
+  border-radius: var(--radius-xl);
+  min-height: 120px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  background: rgba(255,107,107,0.1);
+  border: 2px solid var(--color-expense);
+  margin-top: 0;
 }
-.penalty-btn:first-of-type { margin-top: 0; }
-.penalty-btn:hover { animation: shake 0.5s ease-in-out; }
+.penalty-btn:active { transform: scale(0.95); }
+.penalty-btn .penalty-emoji { font-size: 28px; }
+.penalty-btn .penalty-name { font-size: var(--font-size-base); font-weight: var(--font-weight-bold); color: var(--color-expense-dark); }
+.penalty-btn .penalty-value { font-size: var(--font-size-lg); font-weight: var(--font-weight-extra-bold); color: var(--color-expense); }
 .transaction-list { background: var(--color-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); }
 .transaction-row {
   display: flex;
@@ -900,7 +908,13 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
 
     <section class="penalty-zone">
       <div class="penalty-title">🚨 卫生检查</div>
-      <button class="penalty-btn" onclick="doToilet()">🚽 马桶盖没盖 (-1)</button>
+      <div class="penalty-grid">
+        <button class="penalty-btn" onclick="doToilet()">
+          <span class="penalty-emoji">🚽</span>
+          <span class="penalty-name">马桶盖没盖</span>
+          <span class="penalty-value">-1</span>
+        </button>
+      </div>
     </section>
   </div>
 
@@ -1108,8 +1122,18 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
 
     <section class="penalty-zone">
       <div class="penalty-title">🚨 卫生检查</div>
-      <button class="penalty-btn" onclick="doToilet()">🚽 马桶盖没盖 (-1)</button>
-      <button class="penalty-btn" onclick="doLateSleep()">😴 晚睡 (-1)</button>
+      <div class="penalty-grid">
+        <button class="penalty-btn" onclick="doToilet()">
+          <span class="penalty-emoji">🚽</span>
+          <span class="penalty-name">马桶盖没盖</span>
+          <span class="penalty-value">-1</span>
+        </button>
+        <button class="penalty-btn" onclick="doLateSleep()">
+          <span class="penalty-emoji">😴</span>
+          <span class="penalty-name">晚睡</span>
+          <span class="penalty-value">-1</span>
+        </button>
+      </div>
     </section>
   </div>
 
@@ -1225,7 +1249,7 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
       </div>
       <div class="slider-row">
         <div class="slider-header">
-          <span class="slider-title">工作日消费上限</span>
+          <span class="slider-title">每日消费上限</span>
           <span class="slider-value spend" id="spend-limit-value">20 分</span>
         </div>
         <input type="range" min="5" max="50" value="20" id="spend-limit-slider" class="slider-expense" style="width:100%" oninput="updateSpendLimit()">
@@ -2171,8 +2195,8 @@ function doChores(subTaskId) {
 
 function doPhone() {
   const rule = SPEND_RULES.phone_use;
-  if (!isWeekend() && getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
-    showToast('工作日消费已达上限', 'error');
+  if (getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
+    showToast('今日消费已达上限', 'error');
     return;
   }
   if (appData.child.balance < Math.abs(rule.points)) {
@@ -2189,8 +2213,8 @@ function doSnack() {
     showToast('今日零食次数已用完', 'error');
     return;
   }
-  if (!isWeekend() && getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
-    showToast('工作日消费已达上限', 'error');
+  if (getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
+    showToast('今日消费已达上限', 'error');
     return;
   }
   if (appData.child.balance < Math.abs(rule.points)) {
@@ -2203,8 +2227,8 @@ function doSnack() {
 
 function doToilet() {
   const rule = SPEND_RULES.toilet;
-  if (!isWeekend() && getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
-    showToast('工作日消费已达上限', 'error');
+  if (getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
+    showToast('今日消费已达上限', 'error');
     return;
   }
   if (appData.child.balance < Math.abs(rule.points)) {
@@ -2221,8 +2245,8 @@ function doLateSleep() {
     showToast('今日晚睡惩罚已记录', 'error');
     return;
   }
-  if (!isWeekend() && getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
-    showToast('工作日消费已达上限', 'error');
+  if (getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
+    showToast('今日消费已达上限', 'error');
     return;
   }
   if (appData.child.balance < Math.abs(rule.points)) {
@@ -2243,8 +2267,8 @@ function doGame() {
     showToast('积分不足，请先赚取！', 'error');
     return;
   }
-  if (!isWeekend() && getTodaySpent() + cost > appData.config.weekdaySpendLimit) {
-    showToast('工作日消费已达上限', 'error');
+  if (getTodaySpent() + cost > appData.config.weekdaySpendLimit) {
+    showToast('今日消费已达上限', 'error');
     return;
   }
 
@@ -2483,13 +2507,12 @@ function renderProgressSection(prefix) {
   const spent = getTodaySpent();
   const earnLimit = appData.config.dailyEarnLimit;
   const spendLimit = appData.config.weekdaySpendLimit;
-  const isWeekendDay = isWeekend();
 
   const el = document.getElementById(`${prefix}-progress`);
   if (!el) return;
 
   const earnedPct = Math.min((earned / earnLimit) * 100, 100);
-  const spentPct = isWeekendDay ? 0 : Math.min((spent / spendLimit) * 100, 100);
+  const spentPct = Math.min((spent / spendLimit) * 100, 100);
 
   el.innerHTML = `
     <div class="progress-row">
@@ -2503,14 +2526,12 @@ function renderProgressSection(prefix) {
     </div>
     <div class="progress-row">
       <div class="progress-label">
-        <span>今日已花 💸 ${spent}${isWeekendDay ? ' (周末无上限)' : ' / ' + spendLimit}</span>
-        ${!isWeekendDay ? `<span style="color: var(--color-expense);">${Math.round(spentPct)}%</span>` : ''}
+        <span>今日已花 💸 ${spent} / ${spendLimit}</span>
+        <span style="color: var(--color-expense);">${Math.round(spentPct)}%</span>
       </div>
-      ${!isWeekendDay ? `
       <div class="progress-bar spend">
         <div class="progress-fill" style="width: ${spentPct}%"></div>
       </div>
-      ` : ''}
     </div>
   `;
 }
