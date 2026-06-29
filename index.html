@@ -1572,7 +1572,7 @@ async function loadHouseholdData() {
           .insert({
             user_id: currentUser.id,
             name: '我们家',
-            child_name: '小明',
+            child_name: '孩子',
             invite_code: inviteCode,
           })
           .select()
@@ -1587,8 +1587,16 @@ async function loadHouseholdData() {
         }
         household = newHousehold;
       } else {
+        // householdId 无效，清理并提示输入邀请码
+        console.log('家庭数据不存在，清理 householdId');
+        householdId = null;
+        localStorage.removeItem('fp_household_id');
         showLoading(false);
         isLoading = false;
+        if (currentMode === 'child') {
+          showToast('请输入家庭邀请码', 'info');
+          document.getElementById('invite-code-input').focus();
+        }
         return;
       }
     }
@@ -1988,7 +1996,7 @@ async function doSignOut() {
   }
   appData = {
     config: { dailyEarnLimit: 30, weekdaySpendLimit: 20, interestRate: 0.02, lastInterestDate: null, inviteCode: null },
-    child: { name: '小明', balance: 0, dailyStats: {}, transactions: [] }
+    child: { name: '孩子', balance: 0, dailyStats: {}, transactions: [] }
   };
   // 回到登录主页，显示"我是小朋友"和"登录家长"按钮
   document.getElementById('login-setup').style.display = 'none';
@@ -2095,7 +2103,7 @@ function doChildExit() {
   }
   appData = {
     config: { dailyEarnLimit: 30, weekdaySpendLimit: 20, interestRate: 0.02, lastInterestDate: null, inviteCode: null },
-    child: { name: '小明', balance: 0, dailyStats: {}, transactions: [] }
+    child: { name: '孩子', balance: 0, dailyStats: {}, transactions: [] }
   };
   currentMode = null;
   // 回到登录主页
@@ -2840,8 +2848,18 @@ async function exportData() {
 async function enterMode(mode) {
   currentMode = mode;
   if (mode === 'child') {
-    if (supabase && householdId) {
+    if (!supabase) {
+      showToast('系统未初始化，请刷新页面', 'error');
+      return;
+    }
+    // 如果有 householdId，加载数据；否则提示输入邀请码
+    if (householdId) {
       await loadHouseholdData();
+    } else {
+      // 没有 householdId，提示用户输入邀请码
+      showToast('请输入家庭邀请码', 'info');
+      document.getElementById('invite-code-input').focus();
+      return;
     }
     switchTab('child-earn');
   } else {
