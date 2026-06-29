@@ -789,6 +789,33 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
     <button class="chore-close" onclick="closeChoresPanel()">取消</button>
   </div>
 
+  <div class="chores-panel" id="homework-panel">
+    <div class="chores-panel-title">写作业加分</div>
+    <div class="chores-list" id="homework-list" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="chore-item" onclick="doHomework(1)">
+        <span class="chore-emoji">⭐</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+1</span>
+      </div>
+      <div class="chore-item" onclick="doHomework(2)">
+        <span class="chore-emoji">⭐⭐</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+2</span>
+      </div>
+      <div class="chore-item" onclick="doHomework(5)">
+        <span class="chore-emoji">⭐⭐⭐</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+5</span>
+      </div>
+      <div class="chore-item" onclick="doHomework(10)">
+        <span class="chore-emoji">🏆</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+10</span>
+      </div>
+    </div>
+    <button class="chore-close" onclick="closeHomeworkPanel()">取消</button>
+  </div>
+
   <nav class="tab-bar-fixed">
     <div class="tab-item active" onclick="switchTab('child-earn')">
       <span class="tab-icon">⭐️</span>
@@ -971,6 +998,33 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
     <button class="chore-close" onclick="closeChoresPanel()">取消</button>
   </div>
 
+  <div class="chores-panel" id="parent-homework-panel">
+    <div class="chores-panel-title">写作业加分</div>
+    <div class="chores-list" id="parent-homework-list" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="chore-item" onclick="doHomework(1)">
+        <span class="chore-emoji">⭐</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+1</span>
+      </div>
+      <div class="chore-item" onclick="doHomework(2)">
+        <span class="chore-emoji">⭐⭐</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+2</span>
+      </div>
+      <div class="chore-item" onclick="doHomework(5)">
+        <span class="chore-emoji">⭐⭐⭐</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+5</span>
+      </div>
+      <div class="chore-item" onclick="doHomework(10)">
+        <span class="chore-emoji">🏆</span>
+        <span class="chore-name">加</span>
+        <span class="chore-points">+10</span>
+      </div>
+    </div>
+    <button class="chore-close" onclick="closeHomeworkPanel()">取消</button>
+  </div>
+
   <nav class="tab-bar-fixed">
     <div class="tab-item active" onclick="switchTab('earn')">
       <span class="tab-icon">⭐️</span>
@@ -1055,7 +1109,7 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
     <section class="penalty-zone">
       <div class="penalty-title">🚨 卫生检查</div>
       <button class="penalty-btn" onclick="doToilet()">🚽 马桶盖没盖 (-1)</button>
-      <button class="penalty-btn" onclick="doLateSleep()">😴 晚睡 (-3)</button>
+      <button class="penalty-btn" onclick="doLateSleep()">😴 晚睡 (-1)</button>
     </section>
   </div>
 
@@ -1298,25 +1352,26 @@ function scheduleHouseholdLoad() {
 // ============================================================
 const TASK_RULES = {
   make_bed:      { name: '叠被子',    emoji: '🛏️', points: 2, dailyLimit: 1, limitKey: 'make_bed_count' },
-  homework:      { name: '写作业',    emoji: '📖', points: 1, dailyLimit: null },
+  homework:      { name: '写作业',    emoji: '📖', points: null, dailyLimit: null, isMultiSelect: true }, // 多选
   swim:          { name: '游泳',      emoji: '🏊', points: 3, dailyLimit: 1, limitKey: 'swim_count' },
   reading:       { name: '课外阅读',  emoji: '📚', points: 1, dailyLimit: 1, limitKey: 'reading_count' },
   exercise_alt:  { name: '运动',     emoji: '🏃', points: 2, dailyLimit: 1, limitKey: 'exercise_count' },
-  piano:         { name: '练琴',      emoji: '🎹', points: 2, dailyLimit: 1, limitKey: 'piano_count' },
+  diary:         { name: '写日记',    emoji: '📝', points: 1, dailyLimit: 1, limitKey: 'diary_count' },
   water:         { name: '喝水',      emoji: '🥛', points: 1, dailyLimit: null },
-  early_sleep:   { name: '早睡',      emoji: '😴', points: 2, dailyLimit: 1, limitKey: 'early_sleep_count' },
+  early_sleep:   { name: '早睡',      emoji: '😴', points: 1, dailyLimit: 1, limitKey: 'early_sleep_count' },
   chores_sweep:  { name: '扫地',      emoji: '🧹', points: 1, dailyLimit: 1, limitKey: 'chores_sweep_count' },
   chores_mop:    { name: '拖地',      emoji: '🪣', points: 1, dailyLimit: 1, limitKey: 'chores_mop_count' },
   chores_dishes: { name: '洗碗',      emoji: '🍽️', points: 1, dailyLimit: 1, limitKey: 'chores_dishes_count' },
   chores_trash:  { name: '倒垃圾',    emoji: '🗑️', points: 1, dailyLimit: 1, limitKey: 'chores_trash_count' },
   chores_wipe:   { name: '擦桌',      emoji: '🧽', points: 1, dailyLimit: 1, limitKey: 'chores_wipe_count' },
+  chores_other:  { name: '其他',      emoji: '✨', points: 1, dailyLimit: 1, limitKey: 'chores_other_count' },
 };
 
 const SPEND_RULES = {
   phone_use:  { name: '看手机',    emoji: '📱', points: -2, dailyLimit: null },
   snack:      { name: '吃零食',    emoji: '🍭', points: -1, dailyLimit: 2, limitKey: 'snack_count' },
   toilet:     { name: '马桶盖没盖', emoji: '🚽', points: -1, dailyLimit: null },
-  late_sleep: { name: '晚睡',     emoji: '😴', points: -3, dailyLimit: 1, limitKey: 'late_sleep_count' },
+  late_sleep: { name: '晚睡',     emoji: '😴', points: -1, dailyLimit: 1, limitKey: 'late_sleep_count' },
 };
 
 // ============================================================
@@ -2390,6 +2445,36 @@ function closeChoresPanel() {
   }
 }
 
+let currentHomeworkPanel = null;
+
+function openHomeworkPanel(panelId) {
+  currentHomeworkPanel = panelId;
+  document.getElementById(panelId).classList.add('show');
+}
+
+function closeHomeworkPanel() {
+  if (currentHomeworkPanel) {
+    document.getElementById(currentHomeworkPanel).classList.remove('show');
+    currentHomeworkPanel = null;
+  }
+}
+
+function renderHomeworkPanel(prefix) {
+  // Homework panel already exists in HTML, just need to ensure it's rendered
+}
+
+async function doHomework(points) {
+  closeHomeworkPanel();
+
+  if (getTodayEarned() >= appData.config.dailyEarnLimit) {
+    showToast('今日积分已封顶，明天再来！', 'error');
+    return;
+  }
+
+  pendingAction = { type: 'earn', taskId: 'homework_' + points, points: points };
+  showConfirmDialog('📖', `写作业完成？`, `将获得 +${points} 积分`, 'earn');
+}
+
 // ============================================================
 // RENDER FUNCTIONS
 // ============================================================
@@ -2436,16 +2521,26 @@ function renderTaskGrid(prefix) {
 
   const tasks = [
     { id: 'make_bed', name: '叠被子', emoji: '🛏️', points: 2 },
-    { id: 'homework', name: '写作业', emoji: '📖', points: 1 },
+    { id: 'homework', name: '写作业', emoji: '📖', points: null, isHomework: true },
     { id: 'swim', name: '游泳', emoji: '🏊', points: 3 },
     { id: 'reading', name: '课外阅读', emoji: '📚', points: 1 },
     { id: 'chores', name: '做家务', emoji: '🧹', points: null, isChores: true },
     { id: 'exercise_alt', name: '运动', emoji: '🏃', points: 2 },
-    { id: 'piano', name: '练琴', emoji: '🎹', points: 2 },
-    { id: 'early_sleep', name: '早睡', emoji: '😴', points: 2 },
+    { id: 'diary', name: '写日记', emoji: '📝', points: 1 },
+    { id: 'early_sleep', name: '早睡', emoji: '😴', points: 1 },
   ];
 
   grid.innerHTML = tasks.map(t => {
+    if (t.isHomework) {
+      return `
+        <div class="task-card" onclick="openHomeworkPanel('${prefix}-homework-panel')">
+          <span class="task-arrow">▸</span>
+          <span class="task-emoji">${t.emoji}</span>
+          <span class="task-name">${t.name}</span>
+          <span class="task-points">选择加分</span>
+        </div>
+      `;
+    }
     if (t.isChores) {
       return `
         <div class="task-card" onclick="openChoresPanel('${prefix}-chores-panel')">
@@ -2465,6 +2560,9 @@ function renderTaskGrid(prefix) {
     `;
   }).join('');
 
+  // Render homework sub-panel
+  renderHomeworkPanel(prefix);
+
   // Render chores sub-panel
   const choresList = document.getElementById(`${prefix}-chores-list`);
   if (choresList) {
@@ -2474,6 +2572,7 @@ function renderTaskGrid(prefix) {
       { id: 'chores_dishes', name: '洗碗', emoji: '🍽️' },
       { id: 'chores_trash', name: '倒垃圾', emoji: '🗑️' },
       { id: 'chores_wipe', name: '擦桌', emoji: '🧽' },
+      { id: 'chores_other', name: '其他', emoji: '✨' },
     ];
     choresList.innerHTML = subTasks.map(s => `
       <div class="chore-item" onclick="doChores('${s.id}')">
