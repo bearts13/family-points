@@ -404,6 +404,9 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
 .spend-btn.snack { background: var(--color-cream); border: 2px solid var(--color-gold); }
 .spend-btn.snack .spend-name { color: var(--color-text-primary); }
 .spend-btn.snack .spend-value { color: var(--color-gold-dark); }
+.spend-btn.penalty { background: rgba(255,107,107,0.1); border: 2px solid var(--color-expense); }
+.spend-btn.penalty .spend-name { color: var(--color-expense-dark); }
+.spend-btn.penalty .spend-value { color: var(--color-expense); }
 .spend-btn .spend-emoji { font-size: 28px; }
 .spend-btn .spend-name { font-size: var(--font-size-base); font-weight: var(--font-weight-bold); }
 .spend-btn .spend-value { font-size: var(--font-size-lg); font-weight: var(--font-weight-extra-bold); }
@@ -891,7 +894,7 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
 
     <section class="spend-card">
       <div class="spend-card-title">🛒 日常消费</div>
-      <div class="spend-grid">
+      <div class="spend-grid" style="grid-template-columns: repeat(3, 1fr);">
         <button class="spend-btn phone" onclick="doPhone()">
           <span class="spend-emoji">📱</span>
           <span class="spend-name">看手机</span>
@@ -902,6 +905,11 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
           <span class="spend-name">吃零食</span>
           <span class="spend-value">-1</span>
           <div class="spend-dots" id="snack-dots"></div>
+        </button>
+        <button class="spend-btn penalty" onclick="doPenalty()">
+          <span class="spend-emoji">⚠️</span>
+          <span class="spend-name">异常扣分</span>
+          <span class="spend-value">-1</span>
         </button>
       </div>
     </section>
@@ -1105,7 +1113,7 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
 
     <section class="spend-card">
       <div class="spend-card-title">🛒 日常消费</div>
-      <div class="spend-grid">
+      <div class="spend-grid" style="grid-template-columns: repeat(3, 1fr);">
         <button class="spend-btn phone" onclick="doPhone()">
           <span class="spend-emoji">📱</span>
           <span class="spend-name">看手机</span>
@@ -1116,6 +1124,11 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
           <span class="spend-name">吃零食</span>
           <span class="spend-value">-1</span>
           <div class="spend-dots" id="parent-snack-dots"></div>
+        </button>
+        <button class="spend-btn penalty" onclick="doPenalty()">
+          <span class="spend-emoji">⚠️</span>
+          <span class="spend-name">异常扣分</span>
+          <span class="spend-value">-1</span>
         </button>
       </div>
     </section>
@@ -1396,6 +1409,7 @@ const SPEND_RULES = {
   snack:      { name: '吃零食',    emoji: '🍭', points: -1, dailyLimit: 2, limitKey: 'snack_count' },
   toilet:     { name: '马桶盖没盖', emoji: '🚽', points: -1, dailyLimit: null },
   late_sleep: { name: '晚睡',     emoji: '😴', points: -1, dailyLimit: 1, limitKey: 'late_sleep_count' },
+  penalty:    { name: '异常扣分',   emoji: '⚠️', points: -1, dailyLimit: null },
 };
 
 // ============================================================
@@ -2255,6 +2269,20 @@ function doLateSleep() {
   }
   pendingAction = { type: 'spend', actionId: 'late_sleep', points: rule.points };
   showConfirmDialog(rule.emoji, `晚睡？`, `将扣除 ${Math.abs(rule.points)} 积分（惩罚）`, 'spend');
+}
+
+function doPenalty() {
+  const rule = SPEND_RULES.penalty;
+  if (getTodaySpent() + Math.abs(rule.points) > appData.config.weekdaySpendLimit) {
+    showToast('今日消费已达上限', 'error');
+    return;
+  }
+  if (appData.child.balance < Math.abs(rule.points)) {
+    showToast('积分不足，请先赚取！', 'error');
+    return;
+  }
+  pendingAction = { type: 'spend', actionId: 'penalty', points: rule.points };
+  showConfirmDialog(rule.emoji, `异常扣分？`, `将扣除 ${Math.abs(rule.points)} 积分（惩罚）`, 'spend');
 }
 
 function doGame() {
