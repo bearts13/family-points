@@ -1,0 +1,58 @@
+{
+  "root": {
+    "nodeId": "gen-project-shell",
+    "kind": "project-shell",
+    "pageIds": ["page-earn", "page-spend", "page-history", "page-settings"],
+    "output": "partials/app-shell.html",
+    "sharedRegions": ["header", "tab-bar", "progress-bar"],
+    "privateRegions": [],
+    "mutableSlots": ["active-tab", "page-title", "content-area"],
+    "status": "planned",
+    "children": [
+      {
+        "nodeId": "gen-page-earn",
+        "kind": "page-leaf",
+        "pageIds": ["page-earn"],
+        "output": "pages/earn.html",
+        "sharedRegions": [],
+        "privateRegions": ["earn-task-grid"],
+        "mutableSlots": ["active-tab"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-spend",
+        "kind": "page-leaf",
+        "pageIds": ["page-spend"],
+        "output": "pages/spend.html",
+        "sharedRegions": [],
+        "privateRegions": ["spend-content"],
+        "mutableSlots": ["active-tab"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-history",
+        "kind": "page-leaf",
+        "pageIds": ["page-history"],
+        "output": "pages/history.html",
+        "sharedRegions": [],
+        "privateRegions": ["history-list"],
+        "mutableSlots": ["active-tab"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-settings",
+        "kind": "page-leaf",
+        "pageIds": ["page-settings"],
+        "output": "pages/settings.html",
+        "sharedRegions": [],
+        "privateRegions": ["settings-content"],
+        "mutableSlots": ["active-tab"],
+        "status": "planned",
+        "children": []
+      }
+    ]
+  }
+}

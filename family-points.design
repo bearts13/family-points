@@ -1,0 +1,295 @@
+{
+  "data": [
+    {
+      "id": "page-login",
+      "title": "登录选择",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782350000000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 1
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/login.html",
+        "interactions": [
+          {
+            "domId": "enter-child-earn",
+            "targetPageId": "page-child-earn",
+            "transitionLabel": "孩子进入"
+          },
+          {
+            "domId": "enter-parent-earn",
+            "targetPageId": "page-earn",
+            "transitionLabel": "家长进入"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-child-earn",
+      "title": "孩子-赚积分",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782350000000,
+      "canvasData": {
+        "x": 420,
+        "y": 0,
+        "group": 1
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/child-earn.html",
+        "interactions": [
+          {
+            "domId": "tab-child-spend",
+            "targetPageId": "page-child-spend",
+            "transitionLabel": "切换到消费"
+          },
+          {
+            "domId": "tab-child-history",
+            "targetPageId": "page-child-history",
+            "hideEdge": true,
+            "transitionLabel": "切换到流水"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-child-spend",
+      "title": "孩子-消费娱乐",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782350000000,
+      "canvasData": {
+        "x": 840,
+        "y": 0,
+        "group": 1
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/child-spend.html",
+        "interactions": [
+          {
+            "domId": "tab-child-history",
+            "targetPageId": "page-child-history",
+            "transitionLabel": "切换到流水"
+          },
+          {
+            "domId": "tab-child-earn",
+            "targetPageId": "page-child-earn",
+            "hideEdge": true,
+            "transitionLabel": "切换到赚取"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-child-history",
+      "title": "孩子-流水账",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782350000000,
+      "canvasData": {
+        "x": 1260,
+        "y": 0,
+        "group": 1
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/child-history.html",
+        "interactions": [
+          {
+            "domId": "tab-child-earn",
+            "targetPageId": "page-child-earn",
+            "hideEdge": true,
+            "transitionLabel": "切换到赚取"
+          },
+          {
+            "domId": "tab-child-spend",
+            "targetPageId": "page-child-spend",
+            "hideEdge": true,
+            "transitionLabel": "切换到消费"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-parent-settings",
+      "title": "家长-设置银行",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782350000000,
+      "canvasData": {
+        "x": 0,
+        "y": 1509,
+        "group": 1
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/parent-settings.html",
+        "interactions": [
+          {
+            "domId": "tab-parent-earn",
+            "targetPageId": "page-earn",
+            "hideEdge": true,
+            "transitionLabel": "切换到赚取"
+          },
+          {
+            "domId": "tab-parent-spend",
+            "targetPageId": "page-spend",
+            "hideEdge": true,
+            "transitionLabel": "切换到消费"
+          },
+          {
+            "domId": "tab-parent-history",
+            "targetPageId": "page-history",
+            "hideEdge": true,
+            "transitionLabel": "切换到流水"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-earn",
+      "title": "赚积分",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782349000000,
+      "canvasData": {
+        "x": 420,
+        "y": 590,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/earn.html",
+        "interactions": [
+          {
+            "domId": "tab-spend",
+            "targetPageId": "page-spend",
+            "transitionLabel": "切换到消费"
+          },
+          {
+            "domId": "tab-history",
+            "targetPageId": "page-history",
+            "hideEdge": true,
+            "transitionLabel": "切换到流水"
+          },
+          {
+            "domId": "tab-settings",
+            "targetPageId": "page-settings",
+            "hideEdge": true,
+            "transitionLabel": "切换到设置"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-spend",
+      "title": "消费娱乐",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782349000000,
+      "canvasData": {
+        "x": 840,
+        "y": 738,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/spend.html",
+        "interactions": [
+          {
+            "domId": "tab-history",
+            "targetPageId": "page-history",
+            "transitionLabel": "切换到流水"
+          },
+          {
+            "domId": "tab-earn",
+            "targetPageId": "page-earn",
+            "hideEdge": true,
+            "transitionLabel": "切换到赚取"
+          },
+          {
+            "domId": "tab-settings",
+            "targetPageId": "page-settings",
+            "hideEdge": true,
+            "transitionLabel": "切换到设置"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-history",
+      "title": "流水账",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782349000000,
+      "canvasData": {
+        "x": 1260,
+        "y": 750,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/history.html",
+        "interactions": [
+          {
+            "domId": "tab-settings",
+            "targetPageId": "page-settings",
+            "transitionLabel": "切换到设置"
+          },
+          {
+            "domId": "tab-earn",
+            "targetPageId": "page-earn",
+            "hideEdge": true,
+            "transitionLabel": "切换到赚取"
+          },
+          {
+            "domId": "tab-spend",
+            "targetPageId": "page-spend",
+            "hideEdge": true,
+            "transitionLabel": "切换到消费"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-settings",
+      "title": "设置银行",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782349000000,
+      "canvasData": {
+        "x": 1680,
+        "y": 750,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/settings.html",
+        "interactions": [
+          {
+            "domId": "tab-earn",
+            "targetPageId": "page-earn",
+            "hideEdge": true,
+            "transitionLabel": "切换到赚取"
+          },
+          {
+            "domId": "tab-spend",
+            "targetPageId": "page-spend",
+            "hideEdge": true,
+            "transitionLabel": "切换到消费"
+          },
+          {
+            "domId": "tab-history",
+            "targetPageId": "page-history",
+            "hideEdge": true,
+            "transitionLabel": "切换到流水"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "mobile",
+    "projectName": "家庭积分银行",
+    "designLibrary": null,
+    "showEdge": true
+  }
+}

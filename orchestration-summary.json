@@ -1,0 +1,343 @@
+{
+  "project": {
+    "name": "家庭积分银行",
+    "path": "H:\\02 AI做的小玩意\\进度看板\\family-points",
+    "operation": "create",
+    "deviceType": "mobile",
+    "language": "zh-CN",
+    "dashboardMode": false,
+    "replicationMode": null,
+    "sourceUrl": null,
+    "visualSpecExcerpt": null,
+    "styleDefinitionBrief": "Playful toy-like children's app, warm cream background with green income and coral expense accents, large emoji-driven cards, rounded shapes, bank/savings metaphor for kids",
+    "designRead": "Mobile children's app / 10-year-old kids + parents / playful toy-like warm / medium density / avoid corporate or dark themes",
+    "designDials": {
+      "layoutVariance": 3,
+      "motionIntensity": 3,
+      "visualDensity": 3
+    },
+    "styleContinuityAnchors": {
+      "colorSystem": {
+        "primaryColorRole": "warm cream background with green income and coral expense as functional colors",
+        "brandHuePolicy": "income green #2ECC71 and expense coral #FF6B6B are semantic, not decorative identity colors",
+        "stateColors": "success=green, warning=cream, error=coral, info=sky blue"
+      },
+      "shapeSystem": "large rounded corners (20px cards), pill-shaped buttons, circular avatars",
+      "typographySystem": "system sans-serif (PingFang SC), large touch-friendly text (>=20px buttons, >=48px scores)",
+      "spacingSystem": "generous padding for child-friendly touch targets (60px min tap area)",
+      "componentLanguage": "emoji-driven labels, card-based layout, bottom tab navigation",
+      "surfaceAndDepth": "subtle shadows on white cards over cream background, no heavy elevation",
+      "imageryAndIconography": "emoji as primary iconography, no image assets needed",
+      "interactionTone": "playful animations (floating +score, shake on error, confetti on settlement)"
+    },
+    "specsConstraints": null,
+    "sharedProjectShellContract": {
+      "navigationShell": "fixed bottom tab bar with 4 tabs (earn/spend/history/settings), fixed top header with bank name + balance",
+      "primaryColorSystem": "income green for positive actions, expense coral for negative actions, cream background throughout",
+      "typographySystem": "PingFang SC system stack, 48px for balance numbers, 20px+ for buttons, 16px body text",
+      "radiusScale": "20px cards, 12px buttons, 9999px pills",
+      "surfaceDepthModel": "white cards with 0.04 alpha shadow on cream background",
+      "ctaStyle": "large rounded buttons with emoji, min 60px height, bold text",
+      "alignmentRules": "2-column grid for task cards, centered content, generous padding"
+    },
+    "generationTree": {
+      "root": {
+        "nodeId": "gen-project-shell",
+        "kind": "project-shell",
+        "pageIds": ["page-earn", "page-spend", "page-history", "page-settings"],
+        "output": "partials/app-shell.html",
+        "sharedRegions": ["header", "tab-bar", "progress-bar"],
+        "privateRegions": [],
+        "mutableSlots": ["active-tab", "page-title", "content-area"],
+        "status": "planned",
+        "children": [
+          {
+            "nodeId": "gen-page-earn",
+            "kind": "page-leaf",
+            "pageIds": ["page-earn"],
+            "output": "pages/earn.html",
+            "sharedRegions": [],
+            "privateRegions": ["earn-task-grid"],
+            "mutableSlots": ["active-tab"],
+            "status": "planned",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-spend",
+            "kind": "page-leaf",
+            "pageIds": ["page-spend"],
+            "output": "pages/spend.html",
+            "sharedRegions": [],
+            "privateRegions": ["spend-content"],
+            "mutableSlots": ["active-tab"],
+            "status": "planned",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-history",
+            "kind": "page-leaf",
+            "pageIds": ["page-history"],
+            "output": "pages/history.html",
+            "sharedRegions": [],
+            "privateRegions": ["history-list"],
+            "mutableSlots": ["active-tab"],
+            "status": "planned",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-settings",
+            "kind": "page-leaf",
+            "pageIds": ["page-settings"],
+            "output": "pages/settings.html",
+            "sharedRegions": [],
+            "privateRegions": ["settings-content"],
+            "mutableSlots": ["active-tab"],
+            "status": "planned",
+            "children": []
+          }
+        ]
+      }
+    }
+  },
+  "designSource": {
+    "operatingMode": "free-explore",
+    "libraryIdentity": {
+      "name": null,
+      "id": null,
+      "version": null,
+      "scope": null,
+      "path": null,
+      "versionSource": null
+    },
+    "libraryPath": null,
+    "cssFilePath": "H:\\02 AI做的小玩意\\进度看板\\family-points\\colors_and_type.css",
+    "brandPrefix": "",
+    "themeMode": "light",
+    "designDecisionSummary": "User provided complete design tokens: cream bg #FFF9F0, income green #2ECC71, expense coral #FF6B6B, cream yellow #FFEAA7, sky blue #74B9FF. Large touch targets for children. Emoji-driven UI. Bank/savings metaphor.",
+    "componentContractKind": null,
+    "forbiddenInventedComponents": [],
+    "allowedComponents": ["button", "card", "progress-bar", "tab-bar", "bottom-sheet", "slider"],
+    "styleConstraints": {
+      "radiusMax": 20,
+      "spacingBase": 4,
+      "fontSizeBody": 16,
+      "fontSizeMin": 12,
+      "controlHeightDefault": 48,
+      "controlHeightLarge": 60
+    },
+    "productContext": {
+      "kitType": "custom-children-app",
+      "productType": "Family gamification / points management"
+    },
+    "actualTokenNameReference": [
+      { "semanticPurpose": "Income/earn color", "tokenName": "--color-income" },
+      { "semanticPurpose": "Expense/spend color", "tokenName": "--color-expense" },
+      { "semanticPurpose": "Background", "tokenName": "--color-background" },
+      { "semanticPurpose": "Card surface", "tokenName": "--color-card" },
+      { "semanticPurpose": "Cream accent", "tokenName": "--color-cream" },
+      { "semanticPurpose": "Sky accent", "tokenName": "--color-sky" },
+      { "semanticPurpose": "Gold accent", "tokenName": "--color-gold" },
+      { "semanticPurpose": "Primary text", "tokenName": "--color-text-primary" },
+      { "semanticPurpose": "Score/number display", "tokenName": "--font-size-3xl" },
+      { "semanticPurpose": "Button minimum touch", "tokenName": "--touch-min" },
+      { "semanticPurpose": "Card border radius", "tokenName": "--radius-xl" }
+    ]
+  },
+  "pages": [
+    {
+      "nodeId": "page-earn",
+      "slug": "earn",
+      "title": "赚积分",
+      "htmlSrc": "pages/earn.html",
+      "pageIndex": 1,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "task-driven",
+      "businessScenario": "Default home screen - child taps task cards to earn points",
+      "visualNorthStar": "A playful grid of emoji task cards that feel like collectible stamps, each tap rewarding with a floating green score animation",
+      "compositionPattern": "2-column card grid with large emoji icons and green score badges",
+      "continuityAnchors": ["header with balance", "progress bar", "bottom tab bar"],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": ["card", "button", "progress-bar"],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": ["dense grid on small screens", "emoji rendering variance"]
+    },
+    {
+      "nodeId": "page-spend",
+      "slug": "spend",
+      "title": "消费娱乐",
+      "htmlSrc": "pages/spend.html",
+      "pageIndex": 2,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "task-driven",
+      "businessScenario": "Child spends points on entertainment, snacks, with weekend game lock",
+      "visualNorthStar": "A dark gaming zone card that feels like a special reward vault, contrasted with bright daily spend buttons below",
+      "compositionPattern": "stacked cards: dark game zone at top, daily spend buttons in middle, penalty zone at bottom",
+      "continuityAnchors": ["header with balance", "progress bar", "bottom tab bar"],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": ["card", "button", "slider"],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": ["dark gradient card contrast", "slider interaction clarity"]
+    },
+    {
+      "nodeId": "page-history",
+      "slug": "history",
+      "title": "流水账",
+      "htmlSrc": "pages/history.html",
+      "pageIndex": 3,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "information-dense",
+      "businessScenario": "Transparent transaction log for parent and child to review",
+      "visualNorthStar": "A clean, scannable list of transactions with green income and red expense amounts, like a simplified bank statement kids can read",
+      "compositionPattern": "filter pills at top, vertical list of transaction rows, floating weekly summary card at bottom",
+      "continuityAnchors": ["header with balance", "progress bar", "bottom tab bar"],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": ["card", "button"],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": ["long list readability"]
+    },
+    {
+      "nodeId": "page-settings",
+      "slug": "settings",
+      "title": "设置银行",
+      "htmlSrc": "pages/settings.html",
+      "pageIndex": 4,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "information-dense",
+      "businessScenario": "Parent-only settings for interest settlement, limits, and data export",
+      "visualNorthStar": "A parent control panel with a prominent gold settlement button and clean sliders, feeling authoritative but not intimidating",
+      "compositionPattern": "balance hero at top, settlement CTA, slider controls, export button at bottom",
+      "continuityAnchors": ["header with balance", "progress bar", "bottom tab bar"],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": ["card", "button", "slider"],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": ["slider accessibility for parents"]
+    }
+  ],
+  "assets": [],
+  "wiringPlan": [
+    {
+      "sourceNodeId": "page-earn",
+      "domId": "tab-spend",
+      "targetPageId": "page-spend"
+    },
+    {
+      "sourceNodeId": "page-spend",
+      "domId": "tab-history",
+      "targetPageId": "page-history"
+    },
+    {
+      "sourceNodeId": "page-history",
+      "domId": "tab-settings",
+      "targetPageId": "page-settings"
+    }
+  ],
+  "hiddenInteractionPlan": [
+    {
+      "sourceNodeId": "page-earn",
+      "domId": "tab-history",
+      "targetPageId": "page-history",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-earn",
+      "domId": "tab-settings",
+      "targetPageId": "page-settings",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-spend",
+      "domId": "tab-earn",
+      "targetPageId": "page-earn",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-spend",
+      "domId": "tab-settings",
+      "targetPageId": "page-settings",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-history",
+      "domId": "tab-earn",
+      "targetPageId": "page-earn",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-history",
+      "domId": "tab-spend",
+      "targetPageId": "page-spend",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-settings",
+      "domId": "tab-earn",
+      "targetPageId": "page-earn",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-settings",
+      "domId": "tab-spend",
+      "targetPageId": "page-spend",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    },
+    {
+      "sourceNodeId": "page-settings",
+      "domId": "tab-history",
+      "targetPageId": "page-history",
+      "hideEdge": true,
+      "reason": "global tab navigation"
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消费娱乐 - 家庭积分银行</title>
+    <style id="theme-vars">
+/* FamilyPoints - Brand CSS */
+/* Core Concept: Growth Bank for kids */
+
+:root {
+  /* === Brand Colors === */
+  --color-income: #2ECC71;
+  --color-income-light: #A8E6CF;
+  --color-income-dark: #27AE60;
+  --color-expense: #FF6B6B;
+  --color-expense-light: #FFB8B8;
+  --color-expense-dark: #E55A5A;
+  --color-background: #FFF9F0;
+  --color-card: #FFFFFF;
+  --color-cream: #FFEAA7;
+  --color-sky: #74B9FF;
+  --color-sky-light: #A8D8FF;
+  --color-gold: #F9CA24;
+  --color-gold-dark: #F0B90B;
+  --color-text-primary: #2D3436;
+  --color-text-secondary: #636E72;
+  --color-text-muted: #B2BEC3;
+  --color-border: #DFE6E9;
+  --color-game-bg-start: #2D3436;
+  --color-game-bg-end: #6C5CE7;
+  --color-overlay: rgba(0, 0, 0, 0.4);
+
+  /* === State Colors === */
+  --state-success: #2ECC71;
+  --state-warning: #FFEAA7;
+  --state-error: #FF6B6B;
+  --state-info: #74B9FF;
+
+  /* === Typography === */
+  --font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  /* === Spacing === */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+
+  /* === Radius === */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* === Touch Targets (child-friendly) === */
+  --touch-min: 60px;
+  --touch-min-height: 48px;
+
+  /* === Layout === */
+  --app-max-width: 800px;
+  --header-height: 80px;
+  --progress-bar-height: 60px;
+  --tab-bar-height: 72px;
+  --content-padding: 16px;
+}
+
+/* === Typography Classes === */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-bold { font-weight: var(--font-weight-bold); }
+.font-extra-bold { font-weight: var(--font-weight-extra-bold); }
+
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted { color: var(--color-text-muted); }
+.text-income { color: var(--color-income); }
+.text-expense { color: var(--color-expense); }
+.text-gold { color: var(--color-gold-dark); }
+
+/* === Utility Classes === */
+.bg-background { background-color: var(--color-background); }
+.bg-card { background-color: var(--color-card); }
+.bg-income { background-color: var(--color-income); }
+.bg-expense { background-color: var(--color-expense); }
+.bg-cream { background-color: var(--color-cream); }
+.bg-sky { background-color: var(--color-sky); }
+.bg-gold { background-color: var(--color-gold); }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.shadow-card { box-shadow: var(--shadow-card); }
+.shadow-card-hover { box-shadow: var(--shadow-card-hover); }
+.shadow-float { box-shadow: var(--shadow-float); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--color-background);
+    --color-card: var(--color-card);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main class="mx-auto max-w-[var(--app-max-width)] pb-[calc(var(--tab-bar-height)+var(--space-xl))]">
+        <!-- Fixed Top Header Bar -->
+        <header class="sticky top-0 z-30 flex items-center justify-between px-[var(--content-padding)] py-[var(--space-md)]" style="background:var(--color-card); box-shadow:var(--shadow-card);">
+            <div class="flex items-center gap-[var(--space-sm)]">
+                <span class="text-xl">&#127974;</span>
+                <span class="font-bold text-base" style="color:var(--color-text-primary);">我的积分银行</span>
+            </div>
+            <div class="flex items-center gap-[var(--space-xs)]">
+                <span class="text-xl">&#129689;</span>
+                <span class="font-extra-bold text-2xl" style="color:var(--color-gold-dark);">128</span>
+            </div>
+        </header>
+
+        <!-- Today's Progress Bar Section -->
+        <section class="mx-[var(--content-padding)] mt-[var(--space-lg)] flex gap-[var(--space-sm)]">
+            <div class="flex-1 rounded-lg p-[var(--space-md)]" style="background:var(--color-income-light);">
+                <div class="flex items-center justify-between mb-[var(--space-xs)]">
+                    <span class="text-sm font-medium" style="color:var(--color-income-dark);">今日已赚 &#11088; 12 / 30</span>
+                </div>
+                <div class="h-2 rounded-full" style="background:var(--color-income);">
+                    <div class="h-2 rounded-full" style="background:var(--color-income-dark); width:40%;"></div>
+                </div>
+            </div>
+            <div class="flex-1 rounded-lg p-[var(--space-md)]" style="background:var(--color-expense-light);">
+                <div class="flex items-center justify-between mb-[var(--space-xs)]">
+                    <span class="text-sm font-medium" style="color:var(--color-expense-dark);">今日已花 &#128184; 5 / 20</span>
+                </div>
+                <div class="h-2 rounded-full" style="background:var(--color-expense);">
+                    <div class="h-2 rounded-full" style="background:var(--color-expense-dark); width:25%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <div class="mx-[var(--content-padding)] mt-[var(--space-lg)] flex flex-col gap-[var(--space-lg)]">
+
+            <!-- Card 1: Weekend Gaming Zone (LOCKED STATE) -->
+            <section class="relative overflow-hidden rounded-xl p-[var(--space-xl)]" style="background:linear-gradient(135deg, var(--color-game-bg-start), var(--color-game-bg-end)); opacity:0.5; filter:grayscale(60%);">
+                <!-- Lock Overlay -->
+                <div class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-[var(--space-sm)] rounded-xl" style="background:rgba(0,0,0,0.3);">
+                    <span class="text-4xl">&#128274;</span>
+                    <span class="font-bold text-base" style="color:var(--color-card);">周末才开放哦</span>
+                </div>
+                <!-- Card Content (behind lock) -->
+                <div class="relative z-0">
+                    <div class="flex items-center gap-[var(--space-sm)] mb-[var(--space-xs)]">
+                        <span class="text-xs font-medium" style="color:var(--color-cream);">周末专属</span>
+                        <span class="text-xs" style="color:var(--color-text-muted);">|</span>
+                        <span class="text-xs font-medium" style="color:var(--color-cream);">电子游戏</span>
+                    </div>
+                    <h2 class="font-bold text-xl mb-[var(--space-lg)]" style="color:var(--color-card);">&#127918; 游戏兑换</h2>
+                    <div class="rounded-lg p-[var(--space-lg)] mb-[var(--space-md)]" style="background:rgba(255,255,255,0.1);">
+                        <label class="text-sm font-medium block mb-[var(--space-sm)]" style="color:var(--color-cream);">我玩 ____ 分钟</label>
+                        <div class="flex items-center gap-[var(--space-md)]">
+                            <input type="range" min="3" max="60" value="10" class="flex-1 h-2 rounded-full appearance-none cursor-pointer" style="background:rgba(255,255,255,0.2); accent-color:var(--color-income);">
+                            <span class="font-bold text-lg whitespace-nowrap" style="color:var(--color-card);">10 分钟</span>
+                        </div>
+                    </div>
+                    <div class="text-center mb-[var(--space-lg)]">
+                        <span class="text-sm" style="color:var(--color-cream);">将扣除：</span>
+                        <span class="font-extra-bold text-2xl" style="color:var(--color-gold);">4 积分</span>
+                        <span class="text-xs block mt-[var(--space-xs)]" style="color:var(--color-text-muted);">1积分 = 3分钟</span>
+                    </div>
+                    <button class="w-full flex items-center justify-center gap-[var(--space-sm)] font-bold text-base rounded-lg" style="min-height:var(--touch-min); background:var(--color-income); color:var(--color-card);">
+                        &#127918; 开始消耗积分玩游戏
+                    </button>
+                </div>
+            </section>
+
+            <!-- Card 2: Daily Spending -->
+            <section class="rounded-xl p-[var(--space-xl)]" style="background:var(--color-card); box-shadow:var(--shadow-card);">
+                <h2 class="font-bold text-lg mb-[var(--space-lg)]" style="color:var(--color-text-primary);">&#128722; 日常消费</h2>
+                <div class="grid grid-cols-2 gap-[var(--space-lg)]">
+                    <!-- Phone Button -->
+                    <button class="flex flex-col items-center justify-center gap-[var(--space-sm)] rounded-xl p-[var(--space-lg)] active:scale-95 transition-transform" style="min-height:120px; background:var(--color-expense-light); border:2px solid var(--color-expense);">
+                        <span class="text-3xl">&#128241;</span>
+                        <span class="font-bold text-base" style="color:var(--color-expense-dark);">看手机</span>
+                        <span class="font-extra-bold text-lg" style="color:var(--color-expense);">-2</span>
+                    </button>
+                    <!-- Snack Button -->
+                    <button class="flex flex-col items-center justify-center gap-[var(--space-sm)] rounded-xl p-[var(--space-lg)] active:scale-95 transition-transform" style="min-height:120px; background:var(--color-cream); border:2px solid var(--color-gold);">
+                        <span class="text-3xl">&#127853;</span>
+                        <span class="font-bold text-base" style="color:var(--color-text-primary);">吃零食</span>
+                        <span class="font-extra-bold text-lg" style="color:var(--color-gold-dark);">-1</span>
+                        <div class="flex gap-[var(--space-xs)] mt-[var(--space-xs)]">
+                            <span class="text-sm">&#9898;&#65039;</span>
+                            <span class="text-sm">&#9898;&#65039;</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Card 3: Hygiene Penalty Zone -->
+            <section class="rounded-xl p-[var(--space-xl)]" style="background:rgba(255,107,107,0.06); border:2px solid var(--color-expense);">
+                <h2 class="font-bold text-lg mb-[var(--space-lg)]" style="color:var(--color-expense-dark);">&#128680; 卫生检查</h2>
+                <button class="penalty-btn w-full flex items-center justify-center gap-[var(--space-sm)] font-bold text-base rounded-lg active:scale-95 transition-transform" style="min-height:var(--touch-min); background:var(--color-expense); color:var(--color-card);">
+                    &#128701; 马桶盖没盖 (-1)
+                </button>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Fixed Bottom Tab Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around" style="height:var(--tab-bar-height); background:var(--color-card); border-top:1px solid var(--color-border); max-width:var(--app-max-width); margin:0 auto;">
+        <a href="earn.html" data-dom-id="tab-earn" data-tab-key="earn" class="flex flex-col items-center justify-center gap-[var(--space-xs)] flex-1" style="color:var(--color-text-muted);">
+            <span class="text-xl">&#11088;</span>
+            <span class="text-xs font-medium">赚取</span>
+        </a>
+        <a href="spend.html" data-dom-id="tab-spend" data-tab-key="spend" class="flex flex-col items-center justify-center gap-[var(--space-xs)] flex-1" style="color:var(--color-expense);">
+            <span class="text-xl">&#127918;</span>
+            <span class="text-xs font-bold">消费</span>
+        </a>
+        <a href="history.html" data-dom-id="tab-history" data-tab-key="history" class="flex flex-col items-center justify-center gap-[var(--space-xs)] flex-1" style="color:var(--color-text-muted);">
+            <span class="text-xl">&#128203;</span>
+            <span class="text-xs font-medium">流水</span>
+        </a>
+        <a href="settings.html" data-dom-id="tab-settings" data-tab-key="settings" class="flex flex-col items-center justify-center gap-[var(--space-xs)] flex-1" style="color:var(--color-text-muted);">
+            <span class="text-xl">&#9881;&#65039;</span>
+            <span class="text-xs font-medium">设置</span>
+        </a>
+    </nav>
+
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+            20%, 40%, 60%, 80% { transform: translateX(2px); }
+        }
+        .penalty-btn:hover {
+            animation: shake 0.5s ease-in-out;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-income);
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-income);
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

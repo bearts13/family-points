@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置银行 - 家庭积分银行</title>
+    <style id="theme-vars">
+/* FamilyPoints - Brand CSS */
+/* Core Concept: Growth Bank for kids */
+
+:root {
+  /* === Brand Colors === */
+  --color-income: #2ECC71;
+  --color-income-light: #A8E6CF;
+  --color-income-dark: #27AE60;
+  --color-expense: #FF6B6B;
+  --color-expense-light: #FFB8B8;
+  --color-expense-dark: #E55A5A;
+  --color-background: #FFF9F0;
+  --color-card: #FFFFFF;
+  --color-cream: #FFEAA7;
+  --color-sky: #74B9FF;
+  --color-sky-light: #A8D8FF;
+  --color-gold: #F9CA24;
+  --color-gold-dark: #F0B90B;
+  --color-text-primary: #2D3436;
+  --color-text-secondary: #636E72;
+  --color-text-muted: #B2BEC3;
+  --color-border: #DFE6E9;
+  --color-game-bg-start: #2D3436;
+  --color-game-bg-end: #6C5CE7;
+  --color-overlay: rgba(0, 0, 0, 0.4);
+
+  /* === State Colors === */
+  --state-success: #2ECC71;
+  --state-warning: #FFEAA7;
+  --state-error: #FF6B6B;
+  --state-info: #74B9FF;
+
+  /* === Typography === */
+  --font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  /* === Spacing === */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+
+  /* === Radius === */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* === Touch Targets (child-friendly) === */
+  --touch-min: 60px;
+  --touch-min-height: 48px;
+
+  /* === Layout === */
+  --app-max-width: 800px;
+  --header-height: 80px;
+  --progress-bar-height: 60px;
+  --tab-bar-height: 72px;
+  --content-padding: 16px;
+}
+
+/* === Typography Classes === */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-bold { font-weight: var(--font-weight-bold); }
+.font-extra-bold { font-weight: var(--font-weight-extra-bold); }
+
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted { color: var(--color-text-muted); }
+.text-income { color: var(--color-income); }
+.text-expense { color: var(--color-expense); }
+.text-gold { color: var(--color-gold-dark); }
+
+/* === Utility Classes === */
+.bg-background { background-color: var(--color-background); }
+.bg-card { background-color: var(--color-card); }
+.bg-income { background-color: var(--color-income); }
+.bg-expense { background-color: var(--color-expense); }
+.bg-cream { background-color: var(--color-cream); }
+.bg-sky { background-color: var(--color-sky); }
+.bg-gold { background-color: var(--color-gold); }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.shadow-card { box-shadow: var(--shadow-card); }
+.shadow-card-hover { box-shadow: var(--shadow-card-hover); }
+.shadow-float { box-shadow: var(--shadow-float); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--color-background);
+    --color-card: var(--color-card);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main class="pb-[140px]">
+      <!-- Top Header Bar (fixed) -->
+      <header class="fixed top-0 left-0 right-0 z-40" style="background: var(--color-card); box-shadow: var(--shadow-card);">
+        <div class="mx-auto flex items-center justify-between px-4" style="max-width: var(--app-max-width); height: var(--header-height);">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏦</span>
+            <span class="font-bold" style="font-size: var(--font-size-lg); color: var(--color-text-primary);">我的积分银行</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="text-lg">🪙</span>
+            <span class="font-extra-bold" style="font-size: var(--font-size-2xl); color: var(--color-gold-dark);">128</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Spacer for fixed header -->
+      <div style="height: var(--header-height);"></div>
+
+      <!-- Today's Progress Bar -->
+      <section class="mx-auto px-4 pt-3 pb-2" style="max-width: var(--app-max-width);">
+        <div class="rounded-lg p-3" style="background: var(--color-card); box-shadow: var(--shadow-card);">
+          <div class="mb-2">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-medium text-sm" style="color: var(--color-text-secondary);">今日已赚 ⭐️ 12 / 30</span>
+            </div>
+            <div class="w-full rounded-full overflow-hidden" style="height: 8px; background: var(--color-cream);">
+              <div class="rounded-full" style="width: 40%; height: 100%; background: var(--color-income);"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-medium text-sm" style="color: var(--color-text-secondary);">今日已花 💸 5 / 20</span>
+            </div>
+            <div class="w-full rounded-full overflow-hidden" style="height: 8px; background: var(--color-cream);">
+              <div class="rounded-full" style="width: 25%; height: 100%; background: var(--color-expense);"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: Balance & Interest Settlement -->
+      <section class="mx-auto px-4 mt-4" style="max-width: var(--app-max-width);">
+        <div class="rounded-lg p-4" style="background: var(--color-card); box-shadow: var(--shadow-card); border: 2px solid var(--color-gold);">
+          <div class="text-center mb-4">
+            <p class="font-medium text-sm mb-1" style="color: var(--color-text-secondary);">总余额</p>
+            <p class="font-extra-bold" style="font-size: var(--font-size-3xl); color: var(--color-gold-dark);">128</p>
+            <p class="text-xs" style="color: var(--color-text-muted);">积分</p>
+          </div>
+          <button class="w-full flex items-center justify-center gap-2 rounded-lg font-bold text-base" style="min-height: var(--touch-min-height); background: var(--color-gold); color: var(--color-text-primary); box-shadow: var(--shadow-card-hover);">
+            <span>💰</span>
+            <span>结算本周利息（2%）</span>
+          </button>
+          <p class="text-center text-xs mt-2" style="color: var(--color-text-muted);">本周利息将增加约 3 积分</p>
+          <div class="flex items-center justify-center gap-1 mt-3 pt-3" style="border-top: 1px solid var(--color-border);">
+            <span class="text-xs" style="color: var(--color-text-muted);">✅ 本周已结息</span>
+            <span class="text-xs" style="color: var(--color-text-muted);">·</span>
+            <span class="text-xs" style="color: var(--color-text-muted);">上次结息：周日</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Limit Controls -->
+      <section class="mx-auto px-4 mt-4" style="max-width: var(--app-max-width);">
+        <div class="rounded-lg p-4" style="background: var(--color-card); box-shadow: var(--shadow-card);">
+          <h2 class="font-bold text-base mb-4" style="color: var(--color-text-primary);">每日限额设置</h2>
+
+          <!-- Earn Limit Slider -->
+          <div class="mb-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-medium text-sm" style="color: var(--color-text-secondary);">每日赚取上限</span>
+              <span class="font-bold text-sm" style="color: var(--color-income-dark);">30 分</span>
+            </div>
+            <div class="relative w-full" style="min-height: var(--touch-min-height);">
+              <input type="range" min="10" max="100" value="30" class="w-full slider-income" style="height: 8px; -webkit-appearance: none; appearance: none; background: var(--color-cream); border-radius: var(--radius-full); outline: none; margin-top: 22px;">
+            </div>
+          </div>
+
+          <!-- Spend Limit Slider -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-medium text-sm" style="color: var(--color-text-secondary);">工作日消费上限</span>
+              <span class="font-bold text-sm" style="color: var(--color-expense-dark);">20 分</span>
+            </div>
+            <div class="relative w-full" style="min-height: var(--touch-min-height);">
+              <input type="range" min="5" max="50" value="20" class="w-full slider-expense" style="height: 8px; -webkit-appearance: none; appearance: none; background: var(--color-cream); border-radius: var(--radius-full); outline: none; margin-top: 22px;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Data Export -->
+      <section class="mx-auto px-4 mt-4" style="max-width: var(--app-max-width);">
+        <div class="rounded-lg p-4" style="background: var(--color-card); box-shadow: var(--shadow-card);">
+          <h2 class="font-bold text-base mb-1" style="color: var(--color-text-primary);">数据导出</h2>
+          <p class="text-xs mb-3" style="color: var(--color-text-muted);">导出本周所有积分记录</p>
+          <button class="w-full flex items-center justify-center gap-2 rounded-lg font-medium text-sm" style="min-height: var(--touch-min-height); background: transparent; color: var(--color-sky); border: 2px solid var(--color-sky);">
+            <span>📥</span>
+            <span>下载账单 JSON</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 4: Parent Info -->
+      <section class="mx-auto px-4 mt-4 mb-6" style="max-width: var(--app-max-width);">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">👨‍👩‍👧</span>
+            <span class="font-medium text-sm" style="color: var(--color-text-secondary);">家长管理模式</span>
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium" style="background: var(--color-cream); color: var(--color-gold-dark);">已验证</span>
+          </div>
+          <span class="text-xs" style="color: var(--color-text-muted);">版本：V3.0</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Tab Bar (fixed) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40" style="background: var(--color-card); box-shadow: 0 -2px 8px rgba(0,0,0,0.06); border-top: 1px solid var(--color-border);">
+      <div class="mx-auto flex items-center justify-around" style="max-width: var(--app-max-width); height: var(--tab-bar-height);">
+        <a href="earn.html" data-dom-id="tab-earn" data-tab-key="earn" class="flex flex-col items-center justify-center gap-0.5 flex-1" style="min-height: var(--touch-min-height); color: var(--color-text-muted); text-decoration: none;">
+          <span class="text-lg">⭐️</span>
+          <span class="text-xs" style="font-size: var(--font-size-xs);">赚取</span>
+        </a>
+        <a href="spend.html" data-dom-id="tab-spend" data-tab-key="spend" class="flex flex-col items-center justify-center gap-0.5 flex-1" style="min-height: var(--touch-min-height); color: var(--color-text-muted); text-decoration: none;">
+          <span class="text-lg">🎮</span>
+          <span class="text-xs" style="font-size: var(--font-size-xs);">消费</span>
+        </a>
+        <a href="history.html" data-dom-id="tab-history" data-tab-key="history" class="flex flex-col items-center justify-center gap-0.5 flex-1" style="min-height: var(--touch-min-height); color: var(--color-text-muted); text-decoration: none;">
+          <span class="text-lg">📋</span>
+          <span class="text-xs" style="font-size: var(--font-size-xs);">流水</span>
+        </a>
+        <a href="settings.html" data-dom-id="tab-settings" data-tab-key="settings" class="flex flex-col items-center justify-center gap-0.5 flex-1" style="min-height: var(--touch-min-height); color: var(--color-text-primary); text-decoration: none;">
+          <span class="text-lg">⚙️</span>
+          <span class="text-xs font-bold" style="font-size: var(--font-size-xs); color: var(--color-text-primary);">设置</span>
+        </a>
+      </div>
+      <!-- Safe area bottom for fullscreen devices -->
+      <div style="height: env(safe-area-inset-bottom, 0px);"></div>
+    </nav>
+
+    <style>
+      /* Custom range slider styling */
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      }
+      .slider-income::-webkit-slider-thumb {
+        background: var(--color-income);
+      }
+      .slider-income::-moz-range-thumb {
+        background: var(--color-income);
+      }
+      .slider-expense::-webkit-slider-thumb {
+        background: var(--color-expense);
+      }
+      .slider-expense::-moz-range-thumb {
+        background: var(--color-expense);
+      }
+    </style>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
